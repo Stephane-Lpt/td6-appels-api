@@ -5840,6 +5840,15 @@
     });
     const galleryElement = document.querySelector("#gallery");
     galleryElement.innerHTML = html;
+    const photos = galleryElement.querySelectorAll(".photo");
+    photos.forEach((photo) => {
+      photo.addEventListener("click", () => __async(void 0, null, function* () {
+        console.log(photo);
+        const photoId = photo.getAttribute("data-photoid");
+        const nouvellePhoto = yield loadPicture(photoId);
+        displayPicture(nouvellePhoto);
+      }));
+    });
   };
 
   // index.js
@@ -5854,20 +5863,20 @@
     display_galerie(galerie);
   }));
   document.querySelector("#nextButton").addEventListener("click", () => __async(void 0, null, function* () {
-    const gallery = yield next();
-    display_galerie(gallery);
+    const galerie = yield next();
+    display_galerie(galerie);
   }));
   document.querySelector("#prevButton").addEventListener("click", () => __async(void 0, null, function* () {
-    const gallery = yield prev();
-    display_galerie(gallery);
+    const galerie = yield prev();
+    display_galerie(galerie);
   }));
   document.querySelector("#firstButton").addEventListener("click", () => __async(void 0, null, function* () {
-    const gallery = yield first();
-    display_galerie(gallery);
+    const galerie = yield first();
+    display_galerie(galerie);
   }));
   document.querySelector("#lastButton").addEventListener("click", () => __async(void 0, null, function* () {
-    const gallery = yield last();
-    display_galerie(gallery);
+    const galerie = yield last();
+    display_galerie(galerie);
   }));
   getPicture(window.location.hash ? window.location.hash.substr(1) : 105);
 })();

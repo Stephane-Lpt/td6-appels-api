@@ -8,7 +8,6 @@ export async function getPicture(id) {
   displayPicture(pictureInformations);
 }
 
-
 document.querySelector('#loadGallery').addEventListener('click', async () => {
   const galerie = await load();
   display_galerie(galerie);
@@ -16,23 +15,23 @@ document.querySelector('#loadGallery').addEventListener('click', async () => {
 
 
 document.querySelector('#nextButton').addEventListener('click', async () => {
-  const gallery = await next();
-  display_galerie(gallery);
+  const galerie = await next();
+  display_galerie(galerie);
 });
 
 document.querySelector('#prevButton').addEventListener('click', async () => {
-  const gallery = await prev();
-  display_galerie(gallery);
+  const galerie = await prev();
+  display_galerie(galerie);
 });
 
 document.querySelector('#firstButton').addEventListener('click', async () => {
-  const gallery = await first();
-  display_galerie(gallery);
+  const galerie = await first();
+  display_galerie(galerie);
 });
 
 document.querySelector('#lastButton').addEventListener('click', async () => {
-  const gallery = await last();
-  display_galerie(gallery);
+  const galerie = await last();
+  display_galerie(galerie);
 });
 
 getPicture(window.location.hash ? window.location.hash.substr(1): 105);

@@ -1,5 +1,7 @@
 import Handlebars from "handlebars";
 import {BASE_URL} from "./config";
+import {loadPicture} from "./photoloader";
+import {displayPicture} from "./ui";
 
 export const display_galerie = (galerie) => {
     const source = document.getElementById('galleryTemplate').innerHTML;
@@ -17,4 +19,14 @@ export const display_galerie = (galerie) => {
 
     const galleryElement = document.querySelector('#gallery');
     galleryElement.innerHTML = html;
+
+    const photos = galleryElement.querySelectorAll('.photo');
+    photos.forEach(photo => {
+        photo.addEventListener('click', async () => {
+            console.log(photo)
+            const photoId = photo.getAttribute('data-photoid');
+            const nouvellePhoto = await loadPicture(photoId);
+            displayPicture(nouvellePhoto);
+        });
+    });
 }
