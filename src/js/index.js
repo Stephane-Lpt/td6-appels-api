@@ -255,12 +255,12 @@
           if (options.data) {
             data = _utils.createFrame(options.data);
           }
-          function execIteration(field, index, last) {
+          function execIteration(field, index, last2) {
             if (data) {
               data.key = field;
               data.index = index;
               data.first = index === 0;
-              data.last = !!last;
+              data.last = !!last2;
               if (contextPath) {
                 data.contextPath = contextPath + field;
               }
@@ -1119,7 +1119,7 @@
     "node_modules/handlebars/dist/cjs/handlebars/no-conflict.js"(exports, module) {
       "use strict";
       exports.__esModule = true;
-      exports["default"] = function(Handlebars2) {
+      exports["default"] = function(Handlebars3) {
         (function() {
           if (typeof globalThis === "object")
             return;
@@ -1130,11 +1130,11 @@
           delete Object.prototype.__magic__;
         })();
         var $Handlebars = globalThis.Handlebars;
-        Handlebars2.noConflict = function() {
-          if (globalThis.Handlebars === Handlebars2) {
+        Handlebars3.noConflict = function() {
+          if (globalThis.Handlebars === Handlebars3) {
             globalThis.Handlebars = $Handlebars;
           }
-          return Handlebars2;
+          return Handlebars3;
         };
       };
       module.exports = exports["default"];
@@ -1670,18 +1670,18 @@
               return (past.length > 20 ? "..." : "") + past.substr(-20).replace(/\n/g, "");
             },
             upcomingInput: function upcomingInput() {
-              var next = this.match;
-              if (next.length < 20) {
-                next += this._input.substr(0, 20 - next.length);
+              var next2 = this.match;
+              if (next2.length < 20) {
+                next2 += this._input.substr(0, 20 - next2.length);
               }
-              return (next.substr(0, 20) + (next.length > 20 ? "..." : "")).replace(/\n/g, "");
+              return (next2.substr(0, 20) + (next2.length > 20 ? "..." : "")).replace(/\n/g, "");
             },
             showPosition: function showPosition() {
               var pre = this.pastInput();
               var c = new Array(pre.length + 1).join("-");
               return pre + this.upcomingInput() + "\n" + c + "^";
             },
-            next: function next() {
+            next: function next2() {
               if (this.done) {
                 return this.EOF;
               }
@@ -2179,24 +2179,24 @@
         if (i === void 0) {
           i = body.length;
         }
-        var prev = body[i - 1], sibling = body[i - 2];
-        if (!prev) {
+        var prev2 = body[i - 1], sibling = body[i - 2];
+        if (!prev2) {
           return isRoot;
         }
-        if (prev.type === "ContentStatement") {
-          return (sibling || !isRoot ? /\r?\n\s*?$/ : /(^|\r?\n)\s*?$/).test(prev.original);
+        if (prev2.type === "ContentStatement") {
+          return (sibling || !isRoot ? /\r?\n\s*?$/ : /(^|\r?\n)\s*?$/).test(prev2.original);
         }
       }
       function isNextWhitespace(body, i, isRoot) {
         if (i === void 0) {
           i = -1;
         }
-        var next = body[i + 1], sibling = body[i + 2];
-        if (!next) {
+        var next2 = body[i + 1], sibling = body[i + 2];
+        if (!next2) {
           return isRoot;
         }
-        if (next.type === "ContentStatement") {
-          return (sibling || !isRoot ? /^\s*?\r?\n/ : /^\s*?(\r?\n|$)/).test(next.original);
+        if (next2.type === "ContentStatement") {
+          return (sibling || !isRoot ? /^\s*?\r?\n/ : /^\s*?(\r?\n|$)/).test(next2.original);
         }
       }
       function omitRight(body, i, multiple) {
@@ -3590,18 +3590,18 @@
         var previousName = 0;
         var previousSource = 0;
         var result = "";
-        var next;
+        var next2;
         var mapping;
         var nameIdx;
         var sourceIdx;
         var mappings = this._mappings.toArray();
         for (var i = 0, len = mappings.length; i < len; i++) {
           mapping = mappings[i];
-          next = "";
+          next2 = "";
           if (mapping.generatedLine !== previousGeneratedLine) {
             previousGeneratedColumn = 0;
             while (mapping.generatedLine !== previousGeneratedLine) {
-              next += ";";
+              next2 += ";";
               previousGeneratedLine++;
             }
           } else {
@@ -3609,26 +3609,26 @@
               if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
                 continue;
               }
-              next += ",";
+              next2 += ",";
             }
           }
-          next += base64VLQ.encode(mapping.generatedColumn - previousGeneratedColumn);
+          next2 += base64VLQ.encode(mapping.generatedColumn - previousGeneratedColumn);
           previousGeneratedColumn = mapping.generatedColumn;
           if (mapping.source != null) {
             sourceIdx = this._sources.indexOf(mapping.source);
-            next += base64VLQ.encode(sourceIdx - previousSource);
+            next2 += base64VLQ.encode(sourceIdx - previousSource);
             previousSource = sourceIdx;
-            next += base64VLQ.encode(mapping.originalLine - 1 - previousOriginalLine);
+            next2 += base64VLQ.encode(mapping.originalLine - 1 - previousOriginalLine);
             previousOriginalLine = mapping.originalLine - 1;
-            next += base64VLQ.encode(mapping.originalColumn - previousOriginalColumn);
+            next2 += base64VLQ.encode(mapping.originalColumn - previousOriginalColumn);
             previousOriginalColumn = mapping.originalColumn;
             if (mapping.name != null) {
               nameIdx = this._names.indexOf(mapping.name);
-              next += base64VLQ.encode(nameIdx - previousName);
+              next2 += base64VLQ.encode(nameIdx - previousName);
               previousName = nameIdx;
             }
           }
-          result += next;
+          result += next2;
         }
         return result;
       };
@@ -5761,7 +5761,6 @@
       const category = yield loadResource(`${BASE_URL}${picture.links.categorie.href}`);
       const comments = yield loadResource(`${BASE_URL}${picture.links.comments.href}`);
       let pictureInformations = { picture, category, comments };
-      console.log(pictureInformations.category);
       return pictureInformations;
     });
   }
@@ -5785,6 +5784,64 @@
     photoElement.innerHTML = html;
   }
 
+  // lib/gallery.js
+  var galleryData = null;
+  var load = () => __async(void 0, null, function* () {
+    galleryData = yield loadResource(`${BASE_URL}${API_PATH}/photos`);
+    return galleryData;
+  });
+  function next() {
+    return __async(this, null, function* () {
+      if (galleryData.links.next) {
+        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.next.href}`);
+        console.log(galleryData);
+      }
+      return galleryData;
+    });
+  }
+  function prev() {
+    return __async(this, null, function* () {
+      if (galleryData.links.prev) {
+        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.prev.href}`);
+      }
+      return galleryData;
+    });
+  }
+  function first() {
+    return __async(this, null, function* () {
+      if (galleryData.links.first) {
+        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.first.href}`);
+      }
+      return galleryData;
+    });
+  }
+  function last() {
+    return __async(this, null, function* () {
+      if (galleryData.links.last) {
+        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.last.href}`);
+      }
+      return galleryData;
+    });
+  }
+
+  // lib/gallery_ui.js
+  var import_handlebars2 = __toESM(require_handlebars());
+  var display_galerie = (galerie) => {
+    const source = document.getElementById("galleryTemplate").innerHTML;
+    const template = import_handlebars2.default.compile(source);
+    const html = template({
+      photos: galerie.photos.map((photo) => ({
+        id: photo.photo.id,
+        title: photo.photo.titre,
+        file: photo.photo.file,
+        thumbnail: `${BASE_URL}${photo.photo.thumbnail.href}`,
+        original: `${BASE_URL}${photo.photo.original.href}`
+      }))
+    });
+    const galleryElement = document.querySelector("#gallery");
+    galleryElement.innerHTML = html;
+  };
+
   // index.js
   function getPicture(id) {
     return __async(this, null, function* () {
@@ -5792,6 +5849,26 @@
       displayPicture(pictureInformations);
     });
   }
+  document.querySelector("#loadGallery").addEventListener("click", () => __async(void 0, null, function* () {
+    const galerie = yield load();
+    display_galerie(galerie);
+  }));
+  document.querySelector("#nextButton").addEventListener("click", () => __async(void 0, null, function* () {
+    const gallery = yield next();
+    display_galerie(gallery);
+  }));
+  document.querySelector("#prevButton").addEventListener("click", () => __async(void 0, null, function* () {
+    const gallery = yield prev();
+    display_galerie(gallery);
+  }));
+  document.querySelector("#firstButton").addEventListener("click", () => __async(void 0, null, function* () {
+    const gallery = yield first();
+    display_galerie(gallery);
+  }));
+  document.querySelector("#lastButton").addEventListener("click", () => __async(void 0, null, function* () {
+    const gallery = yield last();
+    display_galerie(gallery);
+  }));
   getPicture(window.location.hash ? window.location.hash.substr(1) : 105);
 })();
 //# sourceMappingURL=index.js.map

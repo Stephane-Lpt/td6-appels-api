@@ -20,6 +20,5 @@ export async function loadPicture(idPicture) {
     const category = await loadResource(`${BASE_URL}${picture.links.categorie.href}` );
     const comments = await loadResource(`${BASE_URL}${picture.links.comments.href}`);
     let pictureInformations = {picture, category, comments}
-    console.log(pictureInformations.category)
     return pictureInformations;
 }
