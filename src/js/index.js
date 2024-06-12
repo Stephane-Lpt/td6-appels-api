@@ -5771,6 +5771,7 @@
     const source = document.getElementById("photoTemplate").innerHTML;
     const template = import_handlebars.default.compile(source);
     const html = template({
+      id: pictureInformations.picture.photo.id,
       src: `${BASE_URL}${pictureInformations.picture.photo.url.href}`,
       titre: pictureInformations.picture.photo.titre,
       description: pictureInformations.picture.photo.descr,

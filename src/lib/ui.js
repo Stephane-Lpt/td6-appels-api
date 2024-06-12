@@ -5,6 +5,7 @@ export function displayPicture(pictureInformations) {
     const template = Handlebars.compile(source);
 
     const html = template({
+        id: pictureInformations.picture.photo.id,
         src: `${BASE_URL}${pictureInformations.picture.photo.url.href}`,
         titre: pictureInformations.picture.photo.titre,
         description: pictureInformations.picture.photo.descr,
@@ -14,7 +15,6 @@ export function displayPicture(pictureInformations) {
         categorie: pictureInformations.category.categorie.nom,
         commentaires: pictureInformations.comments.comments.map(commentaire => `${commentaire.pseudo} : ${commentaire.content}`)
     });
-
 
     const photoElement = document.querySelector('#la_photo');
     photoElement.innerHTML = html;
