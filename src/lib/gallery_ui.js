@@ -23,10 +23,17 @@ export const display_galerie = (galerie) => {
     const photos = galleryElement.querySelectorAll('.photo');
     photos.forEach(photo => {
         photo.addEventListener('click', async () => {
-            console.log(photo)
             const photoId = photo.getAttribute('data-photoid');
             const nouvellePhoto = await loadPicture(photoId);
             displayPicture(nouvellePhoto);
+
+            const lightbox = document.querySelector('#lightbox');
+            lightbox.style.display = 'block';
+            const lightboxContent = document.querySelector('#lightboxContent');
+            lightboxContent.innerHTML = `
+                <img src="${BASE_URL}${nouvellePhoto.picture.photo.url.href}">
+                <div style="color: white; text-align: center; padding: 10px 0;">${photo.title}</div>
+            `;
         });
     });
 }

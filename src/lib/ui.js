@@ -19,3 +19,13 @@ export function displayPicture(pictureInformations) {
     const photoElement = document.querySelector('#la_photo');
     photoElement.innerHTML = html;
 }
+
+export const actualiserLightBox = (id) => {
+    const lightbox = document.querySelector('#lightbox');
+    lightbox.style.display = 'block';
+    const lightboxContent = document.querySelector('#lightboxContent');
+    lightboxContent.innerHTML = `
+                <img src="${BASE_URL}${nouvellePhoto.picture.photo.url.href}">
+                <div style="color: white; text-align: center; padding: 10px 0;">${photo.title}</div>
+            `;
+}

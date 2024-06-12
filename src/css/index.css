@@ -9,3 +9,45 @@ img {
     flex-direction: row;
     gap: 2vh;
 }
+
+
+.lightbox {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+    display: none;
+}
+
+.lightbox img {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.lightbox .close, .lightbox .prev, .lightbox .next {
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.lightbox .close {
+    float: right;
+}
+
+.lightbox .prev {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+}
+
+.lightbox .next {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+}

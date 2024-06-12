@@ -5793,33 +5793,41 @@
   });
   function next() {
     return __async(this, null, function* () {
-      if (galleryData.links.next) {
-        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.next.href}`);
-        console.log(galleryData);
+      if (galleryData) {
+        if (galleryData.links.next) {
+          galleryData = yield loadResource(`${BASE_URL}${galleryData.links.next.href}`);
+          console.log(galleryData);
+        }
       }
       return galleryData;
     });
   }
   function prev() {
     return __async(this, null, function* () {
-      if (galleryData.links.prev) {
-        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.prev.href}`);
+      if (galleryData) {
+        if (galleryData.links.prev) {
+          galleryData = yield loadResource(`${BASE_URL}${galleryData.links.prev.href}`);
+        }
       }
       return galleryData;
     });
   }
   function first() {
     return __async(this, null, function* () {
-      if (galleryData.links.first) {
-        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.first.href}`);
+      if (galleryData) {
+        if (galleryData.links.first) {
+          galleryData = yield loadResource(`${BASE_URL}${galleryData.links.first.href}`);
+        }
       }
       return galleryData;
     });
   }
   function last() {
     return __async(this, null, function* () {
-      if (galleryData.links.last) {
-        galleryData = yield loadResource(`${BASE_URL}${galleryData.links.last.href}`);
+      if (galleryData) {
+        if (galleryData.links.last) {
+          galleryData = yield loadResource(`${BASE_URL}${galleryData.links.last.href}`);
+        }
       }
       return galleryData;
     });
@@ -5831,23 +5839,29 @@
     const source = document.getElementById("galleryTemplate").innerHTML;
     const template = import_handlebars2.default.compile(source);
     const html = template({
-      photos: galerie.photos.map((photo) => ({
-        id: photo.photo.id,
-        title: photo.photo.titre,
-        file: photo.photo.file,
-        thumbnail: `${BASE_URL}${photo.photo.thumbnail.href}`,
-        original: `${BASE_URL}${photo.photo.original.href}`
+      photos: galerie.photos.map((photo2) => ({
+        id: photo2.photo.id,
+        title: photo2.photo.titre,
+        file: photo2.photo.file,
+        thumbnail: `${BASE_URL}${photo2.photo.thumbnail.href}`,
+        original: `${BASE_URL}${photo2.photo.original.href}`
       }))
     });
     const galleryElement = document.querySelector("#gallery");
     galleryElement.innerHTML = html;
     const photos = galleryElement.querySelectorAll(".photo");
-    photos.forEach((photo) => {
-      photo.addEventListener("click", () => __async(void 0, null, function* () {
-        console.log(photo);
-        const photoId = photo.getAttribute("data-photoid");
-        const nouvellePhoto = yield loadPicture(photoId);
-        displayPicture(nouvellePhoto);
+    photos.forEach((photo2) => {
+      photo2.addEventListener("click", () => __async(void 0, null, function* () {
+        const photoId = photo2.getAttribute("data-photoid");
+        const nouvellePhoto2 = yield loadPicture(photoId);
+        displayPicture(nouvellePhoto2);
+        const lightbox = document.querySelector("#lightbox");
+        lightbox.style.display = "block";
+        const lightboxContent = document.querySelector("#lightboxContent");
+        lightboxContent.innerHTML = `
+                <img src="${BASE_URL}${nouvellePhoto2.picture.photo.url.href}">
+                <div style="color: white; text-align: center; padding: 10px 0;">${photo2.title}</div>
+            `;
       }));
     });
   };
@@ -5865,20 +5879,31 @@
   }));
   document.querySelector("#nextButton").addEventListener("click", () => __async(void 0, null, function* () {
     const galerie = yield next();
-    display_galerie(galerie);
+    if (galerie !== null) {
+      display_galerie(galerie);
+    }
   }));
   document.querySelector("#prevButton").addEventListener("click", () => __async(void 0, null, function* () {
     const galerie = yield prev();
-    display_galerie(galerie);
+    if (galerie !== null) {
+      display_galerie(galerie);
+    }
   }));
   document.querySelector("#firstButton").addEventListener("click", () => __async(void 0, null, function* () {
     const galerie = yield first();
-    display_galerie(galerie);
+    if (galerie !== null) {
+      display_galerie(galerie);
+    }
   }));
   document.querySelector("#lastButton").addEventListener("click", () => __async(void 0, null, function* () {
     const galerie = yield last();
-    display_galerie(galerie);
+    if (galerie !== null) {
+      display_galerie(galerie);
+    }
   }));
-  getPicture(window.location.hash ? window.location.hash.substr(1) : 105);
+  document.querySelector("#closeLightbox").addEventListener("click", () => {
+    document.querySelector("#lightbox").style.display = "none";
+  });
+  getPicture(window.location.hash ? window.location.hash.substr(1) : 106);
 })();
 //# sourceMappingURL=index.js.map
